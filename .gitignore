@@ -1,3 +1,11 @@
+# Don't include any of these folders.
+bin
+results
+
+##############################################
+# GitHub's generated .gitignore is below.
+##############################################
+
 # Prerequisites
 *.d
 

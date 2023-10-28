@@ -8,6 +8,10 @@
 #include <time.h>
 #include <unistd.h>
 
+#if defined(IMPROVE4) || defined(IMPROVE5)
+#include <immintrin.h>
+#endif
+
 #include "Point.hpp"  
 //#include "CellRect.hpp"
   
@@ -690,6 +694,131 @@ void Util::simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, r
                 REAL sum = 0;
                 
                 //-- scan over range 1 --
+#if defined(IMPROVE1)
+                // Manual loop unrolling.
+                int k;
+                for (k = r1_beg; k+4 <= NUM_DIM-1; k+=4)
+                {
+                    REAL dx0 = (p->x[k+0] - q->x[k+0]);
+                    REAL dx1 = (p->x[k+1] - q->x[k+1]);
+                    REAL dx2 = (p->x[k+2] - q->x[k+2]);
+                    REAL dx3 = (p->x[k+3] - q->x[k+3]);
+                    dx0 = dx0 * dx0;
+                    dx1 = dx1 * dx1;
+                    dx2 = dx2 * dx2;
+                    dx3 = dx3 * dx3;
+                    sum += dx0 + dx1 + dx2 + dx3;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+                for (; k <= NUM_DIM-1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+#elif defined(IMPROVE2)
+                // Auto-vectorization where the inner loop goes either to +4 or the end of the array.
+                // Note: not enough iterations for vectorization!
+                for (int k = r1_beg; (k <= NUM_DIM-1) && (sum <= eps2); k+=4) {
+                    for (int kk = k; kk <= __min(k+3, NUM_DIM-1); kk++) {
+                        REAL dx = (p->x[k] - q->x[k]);
+                        dx = dx * dx;
+                        sum += dx;
+                    }
+
+                }
+                if (sum > eps2)
+                    goto stop_2_int;
+#elif defined(IMPROVE21)
+                // Auto-vectorization where the inner loop goes either to +8 or the end of the array.
+                for (int k = r1_beg; (k <= NUM_DIM-1) && (sum <= eps2); k+=8) {
+                    for (int kk = k; kk <= __min(k+7, NUM_DIM-1); kk++) {
+                        REAL dx = (p->x[k+kk] - q->x[k+kk]);
+                        dx = dx * dx;
+                        sum += dx;
+                    }
+                }
+                if (sum > eps2)
+                    goto stop_2_int;
+#elif defined(IMPROVE3)
+                // Auto-vectorization with an explicit "remainder" loop.
+                int k;
+                for (k = r1_beg; k+8 <= NUM_DIM-1; k+=8)
+                {
+                    for (int kk = 0; kk < 8; kk++) {
+                        REAL dx = (p->x[k+kk] - q->x[k+kk]);
+                        dx = dx * dx;
+                        sum += dx;
+                    }
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+
+                for (; k <= NUM_DIM-1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+#elif defined(IMPROVE4)
+                // Manual vectorization with exit condition applied each round.
+                int k;
+                __m256 vec_sum = _mm256_setzero_ps();
+                for (k = r1_beg; k+8 <= NUM_DIM-1; k+=8)
+                {
+                    __m256 px = _mm256_loadu_ps(&(p->x[k]));
+                    __m256 qx = _mm256_loadu_ps(&(q->x[k]));
+                    __m256 dx = _mm256_sub_ps(px, qx);
+                    vec_sum = _mm256_fmadd_ps(dx, dx, vec_sum);
+                    REAL* res = (REAL*)&vec_sum;
+                    sum = res[0] + res[1] + res[2] + res[3] + res[4] + res[5] + res[6] + res[7];
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+                for (; k <= NUM_DIM-1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+#elif defined(IMPROVE5)
+                // Manual vectorization that always goes until the remainder.
+                int k;
+                __m256 vec_sum = _mm256_setzero_ps();
+                for (k = r1_beg; k+8 <= NUM_DIM-1; k+=8)
+                {
+                    __m256 px = _mm256_load_ps(&(p->x[k]));
+                    __m256 qx = _mm256_load_ps(&(q->x[k]));
+                    __m256 dx = _mm256_sub_ps(px, qx);
+                    vec_sum = _mm256_fmadd_ps(dx, dx, vec_sum);
+                }
+                REAL* res = (REAL*)&vec_sum;
+                sum = res[0] + res[1] + res[2] + res[3] + res[4] + res[5] + res[6] + res[7];
+                if (sum > eps2)
+                    goto stop_2_int;
+                for (; k <= NUM_DIM-1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+#else
+                // Original code.
                 for (int k = r1_beg; k <= NUM_DIM-1; k++)
                 {
                     REAL dx = (p->x[k] - q->x[k]);
@@ -699,6 +828,7 @@ void Util::simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, r
                     if (sum > eps2)
                         goto stop_2_int;
                 }
+#endif
                 
                 //-- scan over range 2 --
                 for (int k = 0; k <= r2_end; k++)
@@ -1006,8 +1136,12 @@ next_step:
     //if (Q->size() % 5 != 0) { printf("\n get_job: q4"); exit(-1); }
 	
 	(*num_jobless) --;
-	
+
+#ifdef FIX
+	if (GQ->num_jobs > 0 && num_jobless != 0)
+#else
 	if (GQ->num_jobs > 0 && num_jobless > 0)
+#endif
 	{
 		trylock(&need_job);
 		unlock(&need_job);
