@@ -27,6 +27,8 @@ only for the compilers which generate this error.
 The [scripts][7] folder is where all of the scripts are for compiling all versions of the program and running the experiments used in the term project.
 Each one is a Bash script and should be run from inside the [scripts][7] folder.
 
+Note: the ICX build is broken as of 28-Oct-2023.
+
 [1]: https://ics.uci.edu/~dvk/code/SuperEGO.html
 [2]: https://github.com/ryanjob42/Super-EGO-Speedup/blob/main/LICENSE.txt
 [3]: https://www.cs.colostate.edu/~cs533/
