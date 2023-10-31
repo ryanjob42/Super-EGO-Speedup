@@ -34,6 +34,20 @@ Almost all of the compilers generated an error for this, as it is considered und
 A compiler directive was used to conditionally compile a fixed version (by checking that the pointer is not equal to 0)
 only for the compilers which generate this error.
 
+The real-world data provided by the original authors is used
+to check that each program variation produces the correct results.
+This file is "ColorHist.txt" inside the "SuperEGO_data.zip" archive.
+To allow this to be used correctly, the "constants.h" file was update with the correct path
+and the "test.cpp" file was updated to conditionally write all the matches to a file.
+There was code which did this present (but commented out) to begin with, but this printed in a binary format.
+To make it easier to validate, all matches were printed as strings instead.
+The version of the program compiled with the oldest version of GCC with no other modifications
+is considered the source of truth for comparison.
+There was one pair of records which was found to be exactly on the border of the epsilon value used,
+meaning that floating point rounding error could randomly either include or ignore this pair.
+To account for this, the script which checks that the same records were output skips this pair.
+
+
 ## Compiling and Running the Experiments
 The [scripts][7] folder is where all of the scripts are for compiling all versions of the program and running the experiments used in the term project.
 Each one is a Bash script and should be run from inside the [scripts][7] folder.
