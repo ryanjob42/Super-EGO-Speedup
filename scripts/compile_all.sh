@@ -173,8 +173,8 @@ icc -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icc-i
 rm *.o
 
 # Make the improvement v1 application with ICC and AVX enabled.
-icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
-icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icc-improve1-avx-validate"
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icc-improve1-avx"
 rm *.o
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icc-improve1-avx-g"
