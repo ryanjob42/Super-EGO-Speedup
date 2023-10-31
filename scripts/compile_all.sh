@@ -45,10 +45,16 @@ module load gcc/6.5.0
 g++ -pthread -D_REENTRANT -Ofast -Wall -c *.cpp
 g++ -pthread -D_REENTRANT -lm *.o -o "bin/superego-6.5.0"
 rm *.o
+g++ -pthread -D_REENTRANT -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -pthread -D_REENTRANT -DVALIDATE -lm *.o -o "bin/superego-6.5.0-validate"
+rm *.o
 
 # Make the application with GCC version 6.5.0 and AVX instructions.
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -Ofast -Wall -c *.cpp
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -lm *.o -o "bin/superego-6.5.0-avx"
+rm *.o
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DVALIDATE -lm *.o -o "bin/superego-6.5.0-avx-validate"
 rm *.o
 
 
@@ -66,6 +72,9 @@ rm *.o
 # g++ -g -pthread -D_REENTRANT -DFIX -Ofast -Wall -c *.cpp
 # g++ -g -pthread -D_REENTRANT -DFIX -lm *.o -o "bin/superego-13.2.0-g"
 # rm *.o
+g++ -pthread -D_REENTRANT -DFIX -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -pthread -D_REENTRANT -DFIX -DVALIDATE -lm *.o -o "bin/superego-13.2.0-validate"
+rm *.o
 
 # Make the application with GCC version 13.2.0 and AVX enabled.
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -Ofast -Wall -c *.cpp
@@ -74,6 +83,9 @@ rm *.o
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -Ofast -Wall -c *.cpp
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -lm *.o -o "bin/superego-13.2.0-avx-g"
 # rm *.o
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DVALIDATE -lm *.o -o "bin/superego-13.2.0-avx-validate"
+rm *.o
 
 # Make the improvement v1 application with GCC.
 g++ -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
@@ -82,6 +94,9 @@ rm *.o
 # g++ -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # g++ -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -lm *.o -o "bin/superego-gcc-improve1-g"
 # rm *.o
+g++ -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -lm *.o -o "bin/superego-gcc-improve1-validate"
+rm *.o
 
 # Make the improvement v1 application with GCC and AVX enabled.
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
@@ -90,6 +105,9 @@ rm *.o
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -lm *.o -o "bin/superego-gcc-improve1-avx-g"
 # rm *.o
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -lm *.o -o "bin/superego-gcc-improve1-avx-validate"
+rm *.o
 
 # Make the improvement v3 application with GCC.
 g++ -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -98,6 +116,9 @@ rm *.o
 # g++ -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # g++ -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -lm *.o -o "bin/superego-gcc-improve3-g"
 # rm *.o
+g++ -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -lm *.o -o "bin/superego-gcc-improve3-validate"
+rm *.o
 
 # Make the improvement v3 application with GCC and AVX enabled.
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -106,6 +127,9 @@ rm *.o
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # g++ -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -lm *.o -o "bin/superego-gcc-improve3-avx-g"
 # rm *.o
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -lm *.o -o "bin/superego-gcc-improve3-avx-validate"
+rm *.o
 
 # Make the improvement v4 application with GCC. AVX is required to be enabled.
 g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
@@ -114,6 +138,9 @@ rm *.o
 # g++ -mavx -mavx2 -mfma -g -pthread -march=native -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
 # g++ -mavx -mavx2 -mfma -g -pthread -march=native -D_REENTRANT -DFIX -DIMPROVE4 -lm *.o -o "bin/superego-gcc-improve4-avx-g"
 # rm *.o
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -Ofast -Wall -c *.cpp
+g++ -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -lm *.o -o "bin/superego-gcc-improve4-avx-validate"
+rm *.o
 
 
 #####################################################################
@@ -130,6 +157,9 @@ rm *.o
 icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -Ofast -Wall -c *.cpp
 icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX *.o -o "bin/superego-icc-avx"
 rm *.o
+icc -pthread -D_REENTRANT -DFIX -DVALIDATE -Ofast -Wall -c *.cpp
+icc -pthread -D_REENTRANT -DFIX -DVALIDATE *.o -o "bin/superego-icc-validate"
+rm *.o
 
 # Make the improvement v1 application with ICC.
 icc -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
@@ -138,14 +168,20 @@ rm *.o
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icc-improve1-g"
 # rm *.o
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icc-improve1-validate"
+rm *.o
 
 # Make the improvement v1 application with ICC and AVX enabled.
-icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
-icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icc-improve1-avx"
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icc-improve1-avx-validate"
 rm *.o
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icc-improve1-avx-g"
 # rm *.o
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icc-improve1-avx-validate"
+rm *.o
 
 # Make the improvement v3 application with ICC.
 icc -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -154,6 +190,9 @@ rm *.o
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 *.o -o "bin/superego-icc-improve3-g"
 # rm *.o
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE *.o -o "bin/superego-icc-improve3-validate"
+rm *.o
 
 # Make the improvement v3 application with ICC and AVX enabled.
 icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -162,6 +201,9 @@ rm *.o
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 *.o -o "bin/superego-icc-improve3-avx-g"
 # rm *.o
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE *.o -o "bin/superego-icc-improve3-avx-validate"
+rm *.o
 
 # Make the improvement v4 application with ICC.
 icc -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
@@ -170,6 +212,9 @@ rm *.o
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
 # icc -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 *.o -o "bin/superego-icc-improve4-g"
 # rm *.o
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE *.o -o "bin/superego-icc-improve4-validate"
+rm *.o
 
 # Make the improvement v4 application with ICC and AVX enabled.
 icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
@@ -178,6 +223,9 @@ rm *.o
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
 # icc -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 *.o -o "bin/superego-icc-improve4-g-avx"
 # rm *.o
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -Ofast -Wall -c *.cpp
+icc -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE *.o -o "bin/superego-icc-improve4-avx-validate"
+rm *.o
 
 
 #####################################################################
@@ -191,6 +239,9 @@ module load compilers/icx
 icx -pthread -D_REENTRANT -DFIX -Ofast -Wall -c *.cpp
 icx -pthread -D_REENTRANT -DFIX *.o -o "bin/superego-icx"
 rm *.o
+icx -pthread -D_REENTRANT -DFIX -DVALIDATE -Ofast -Wall -c *.cpp
+icx -pthread -D_REENTRANT -DFIX -DVALIDATE *.o -o "bin/superego-icx-validate"
+rm *.o
 
 # Make the improvement v1 application with ICX.
 icx -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
@@ -199,6 +250,9 @@ rm *.o
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icx-improve1-g"
 # rm *.o
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icx-improve1-validate"
+rm *.o
 
 # Make the improvement v1 application with ICX and AVX enabled.
 icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
@@ -207,6 +261,9 @@ rm *.o
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 -Ofast -Wall -c *.cpp
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE1 *.o -o "bin/superego-icx-improve1-avx-g"
 # rm *.o
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE1 -DVALIDATE *.o -o "bin/superego-icx-improve1-avx-validate"
+rm *.o
 
 # Make the improvement v3 application with ICX.
 icx -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -215,6 +272,9 @@ rm *.o
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 *.o -o "bin/superego-icx-improve3-g"
 # rm *.o
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE *.o -o "bin/superego-icx-improve3-validate"
+rm *.o
 
 # Make the improvement v3 application with ICX and AVX enabled.
 icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
@@ -223,6 +283,9 @@ rm *.o
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 -Ofast -Wall -c *.cpp
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE3 *.o -o "bin/superego-icx-improve3-avx-g"
 # rm *.o
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE3 -DVALIDATE *.o -o "bin/superego-icx-improve3-avx-validate"
+rm *.o
 
 # Make the improvement v4 application with ICX.
 icx -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
@@ -231,6 +294,9 @@ rm *.o
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
 # icx -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 *.o -o "bin/superego-icx-improve4-g"
 # rm *.o
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE *.o -o "bin/superego-icx-improve4-validate"
+rm *.o
 
 # Make the improvement v4 application with ICX and AVX enabled.
 icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
@@ -239,3 +305,6 @@ rm *.o
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 -Ofast -Wall -c *.cpp
 # icx -mavx -mavx2 -mfma -g -pthread -D_REENTRANT -DFIX -DIMPROVE4 *.o -o "bin/superego-icx-improve4-g-avx"
 # rm *.o
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE -Ofast -Wall -c *.cpp
+icx -mavx -mavx2 -mfma -pthread -D_REENTRANT -DFIX -DIMPROVE4 -DVALIDATE *.o -o "bin/superego-icx-improve4-avx-validate"
+rm *.o
