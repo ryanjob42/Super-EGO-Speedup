@@ -1,5 +1,6 @@
-# Don't include any of these folders.
+# Don't include any of these files or folders.
 bin
+ColorHist.txt
 results
 
 ##############################################

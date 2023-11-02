@@ -33,7 +33,7 @@ const int MINLEN 	= 24;//32;
 //#define DATA_FILE	"uni6d.txt"
 //#define DATA_FILE	"../../f784.txt"
 //#define DATA_FILE	"../../Aerial40.txt"
-#define DATA_FILE	"../../ColorHist.txt"
+#define DATA_FILE	"./ColorHist.txt"
 //#define DATA_FILE	"../../ColorMom.txt"
 //#define DATA_FILE	"../../CoocTexture.csv"
 //#define DATA_FILE	"../../LayHist.csv"

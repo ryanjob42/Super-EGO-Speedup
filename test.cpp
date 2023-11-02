@@ -6,6 +6,13 @@
 #include <stdlib.h> 
 #include <search.h>  
   
+#if defined(VALIDATE)
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <string>
+#endif
+
 #include "Point.hpp"  
 #include "Timer.hpp"   
 #include "Util.hpp"  
@@ -156,45 +163,31 @@ int main(int argc, char* argv[])
     //-- Save results --
     float t_save = 0;
     
-    /*printf ("\nSaving resuls to disk (secs) ... ");  
+#if defined(VALIDATE)
+    printf ("\nSaving resuls to disk (secs) ... ");  
 	timer->start();
     
-    FILE *f;
-    
-    f = fopen("res.bin", "w");
-    
-    if (f == NULL)
-    {
-        printf("test.cpp: cannot open file");
-        exit(-1);
-    }
-    
-    int blk_sz = 10000;
-    int *buf = new int[blk_sz];
-    
+    // Use the name of the executable as the name of the file, plus ".out".
+	// Need to replace the "./bin/" with "./outputs/".
+	// Also need to remove the "-validate".
+	std::string executableName = argv[0];
+	executableName = std::regex_replace(executableName, std::regex("/bin/"), "/outputs/");
+	executableName = std::regex_replace(executableName, std::regex("-validate"), "");
+    ofstream out(executableName + ".out");
     for (int i = 0; i < nthr; i++)
     {
-        int num_blk = result[i].size() / blk_sz;
-        
-        for (int k = 0; k < num_blk; k++)
-        {
-            int fr_j = k * blk_sz;
-            int to_j = __min(fr_j + blk_sz, result[i].size());
-            
-            for (int j = fr_j; j < to_j; j++)
-            {
-                buf[j - fr_j] = result[i][j];
-            }
-            
-            fwrite(buf, sizeof(int), to_j - fr_j, f);
+        resCont currResult = result[i];
+        for (int j = 0; j < (int)(currResult.size()); j+=2) {
+            std::string left = std::to_string(currResult[j]);
+            std::string right = std::to_string(currResult[j+1]);
+            out << left << "," << right << "\n";
         }
     }
-		            
+	out.close();
+#endif
     
-    fclose(f);
-    
-  	float t_save = timer->getTime();
-	printf ("%.3f \n", t_save); */
+  	t_save = timer->getTime();
+	printf ("%.3f \n", t_save);
     
     
 	//printf("\n\n *** uncomment Point.hpp ***\n\n");
